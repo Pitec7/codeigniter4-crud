@@ -9,8 +9,14 @@ class ItemModel extends Model
     protected $table      = "item";
     protected $primaryKey = 'id';
 
-    public function getItems()
+    protected $allowedFields = ['name', 'inventory_nb', 'buying_date', 'warranty_duration'];
+
+    public function getItems($id = false)
     {
-        return $this->findAll();
+        if ($id === false) {
+            return $this->findAll();
+        }
+
+        return $this->where(['id' => $id])->first();
     }
 }
