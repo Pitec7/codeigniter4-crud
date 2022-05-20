@@ -136,7 +136,7 @@ class Stock extends BaseController
                     break;
 
                 default:
-                    echo "Vous avez fait n'importe quoi avec l'url";
+                    echo view('errors/url_error');
             }
 
         } else {
