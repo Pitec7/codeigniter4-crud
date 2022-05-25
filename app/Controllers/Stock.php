@@ -17,7 +17,7 @@ class Stock extends BaseController
         
         $data = [
             'items' => $model->getItems(),
-            'title' => 'Item list',
+            'title' => lang('Common_lang.list_display'),
         ];
 
         echo view('templates/header', $data);
@@ -25,7 +25,6 @@ class Stock extends BaseController
         echo view('templates/footer', $data);
     }
 
-    // Il faudra contrôler l'exactitude et l'ordre des instructions dans cette méthode
     public function item_save($id = 0)
     {
         if ((! is_file(APPPATH . 'Views/items/form.php')) || (! is_file(APPPATH . 'Views/items/list.php'))) {
@@ -35,6 +34,7 @@ class Stock extends BaseController
 
         $model = new ItemModel();
 
+        // Vérifier si c'est un "post" et les champs saisis
         if ($this->request->getMethod() === 'post' && $this->validate([
             'name'              => 'required|min_length[3]|max_length[45]',
             'inventory_nb'      => 'required|min_length[3]|max_length[45]',
@@ -50,7 +50,7 @@ class Stock extends BaseController
 
             $data = [
                 'items' => $model->getItems(),
-                'title' => 'Item list',
+                'title' => lang('Common_lang.list_display'),
             ];
 
             echo view('templates/header', $data);
@@ -58,7 +58,7 @@ class Stock extends BaseController
             echo view('templates/footer', $data);
         } else {
 
-            $data['title'] = 'Ajouter un nouvel item';
+            $data['title'] = lang('Common_lang.add_item');
 
             echo view('templates/header', $data);
             echo view('items/form', $data);
@@ -73,7 +73,7 @@ class Stock extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 
-        $data['title'] = 'Ajouter un nouvel item';
+        $data['title'] = lang('Common_lang.add_item');
 
         echo view('templates/header', $data);
         echo view('items/form', $data);
@@ -92,12 +92,12 @@ class Stock extends BaseController
 
         $data = [
             'item'  => $item,
-            'title' => 'Item Update',
+            'title' => lang('Common_lang.update_item'),
         ];
         
         // Vérifie si l'item est bien récupéré.
         if (empty($data['item'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the item: ' . $id);
+            throw new \CodeIgniter\Exceptions\PageNotFoundException(lang('Error_message.item_not_found') . $id);
         }
         
         echo view('templates/header', $data);
@@ -114,7 +114,7 @@ class Stock extends BaseController
             switch ($confirmation) {
                 case 0:
                     $data = [
-                        'title' => 'Confirmation',
+                        'title' => lang('Common_lang.delete_confirm'),
                         'id'    => $id,
                         'name'  => $item['name'],
                     ];
@@ -126,7 +126,7 @@ class Stock extends BaseController
 
                     $data = [
                         'items' => $model->getItems(),
-                        'title' => 'Item list',
+                        'title' => lang('Common_lang.list_display'),
                     ];
             
                     echo view('templates/header', $data);
@@ -140,7 +140,7 @@ class Stock extends BaseController
             }
 
         } else {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the item: ' . $id);
+            throw new \CodeIgniter\Exceptions\PageNotFoundException(lang('Error_message.item_not_found') . $id);
         }
     }
 }
