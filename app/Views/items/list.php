@@ -10,7 +10,7 @@
                 <th scope="col">Nom</th>
                 <th scope="col">No inventaire</th>
                 <th scope="col">Date d'achat</th>
-                <th scope="col">Durée garantie</th>
+                <th scope="col">Durée garantie (en année)</th>
                 <th scope="col"></th>
             </tr>
         </thead>

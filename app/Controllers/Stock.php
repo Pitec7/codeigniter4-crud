@@ -42,11 +42,26 @@ class Stock extends BaseController
             'warranty_duration' => 'required|numeric|min_length[1]|max_length[11]',
         ])) {
             if ($id === 0) {
-                $model->save($_POST);
+                $model->save([
+                    'name' => $this->request->getPost('name'),
+                    'inventory_nb' => $this->request->getPost('inventory_nb'),
+                    'buying_date' => $this->request->getPost('buying_date'),
+                    'warranty_duration' => ($this->request->getPost('warranty_duration'))*12,
+                ]);
             } else {
-                $_POST['id'] = $id;
+                $_POST = [
+                    'id' => $id,
+                    'warranty_duration' => $_POST['warranty_duration']*12,
+                ];
                 $model->save($_POST);
             }
+
+            // if ($id === 0) {
+            //     $model->save($_POST);
+            // } else {
+            //     $_POST['id'] = $id;
+            //     $model->save($_POST);
+            // }
 
             $data = [
                 'items' => $model->getItems(),

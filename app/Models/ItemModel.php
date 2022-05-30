@@ -14,9 +14,24 @@ class ItemModel extends Model
     public function getItems($id = false)
     {
         if ($id === false) {
-            return $this->findAll();
+            $items = $this->findAll();
+            foreach ($items as $key => $warranty) {
+                $items[$key]['warranty_duration'] = round(($warranty['warranty_duration']/12), 1);
+            }
+            return $items;
+        } else {
+            $item = $this->where(['id' => $id])->first();
+            $item['warranty_duration'] = round(($item['warranty_duration']/12), 1);
+            return $item;
         }
-
-        return $this->where(['id' => $id])->first();
     }
+
+    // public function getItems($id = false)
+    // {
+    //     if ($id === false) {
+    //         return $this->findAll();
+    //     }
+
+    //     return $this->where(['id' => $id])->first();
+    // }
 }

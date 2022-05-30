@@ -22,7 +22,7 @@
             <input type="date" class="form-control" id="buying_date" name="buying_date" value="<?= isset($item) ? esc($item['buying_date']) : '' ?>">
         </div>
         <div class="mb-3">
-            <label for="warranty_duration" class="form-label">Durée garantie (en mois)</label>
+            <label for="warranty_duration" class="form-label">Durée garantie (en année)</label>
             <input type="text" class="form-control" id="warranty_duration" name="warranty_duration" value="<?= isset($item) ? esc($item['warranty_duration']) : '' ?>">
         </div>
         <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
