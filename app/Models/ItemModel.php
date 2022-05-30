@@ -13,6 +13,7 @@ class ItemModel extends Model
 
     public function getItems($id = false)
     {
+        // Dans la base de donnée la warranty est enregistrée en mois, là on convertit en année
         if ($id === false) {
             $items = $this->findAll();
             foreach ($items as $key => $warranty) {
